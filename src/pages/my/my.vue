@@ -3,6 +3,7 @@
     <div class="vux-demo">
       <img class="logo" src="../../assets/vux_logo.png">
       <h1> </h1>
+
     </div>
     <group title="cell demo">
       <cell title="VUX" value="关于我们" :is-link='true' link="/about"></cell>

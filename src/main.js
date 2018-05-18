@@ -5,10 +5,16 @@ import FastClick from 'fastclick'
 import App from './App'
 import vueExtend from 'vue-extend'
 import router from './router'
+import $ajax from './axios'
 import store from './store'
 import {ViewBox, Tabbar, TabbarItem, XHeader} from 'vux'
 // 给vue 添加常用方法
-Vue.use(vueExtend, {isMixin: true, userName: 'walletUser', isDev: process.env.NODE_ENV === 'development'})
+Vue.use(vueExtend, {
+  isMixin: true,
+  userName: 'walletUser',
+  isDev: process.env.NODE_ENV === 'development',
+  $ajax
+})
 // 全局注册vux UI 控件
 Vue.component('tabbar', Tabbar)
 Vue.component('tabbar-item', TabbarItem)
@@ -35,6 +41,14 @@ new Vue({
         this.$router.push('/login');
       }
     }
+    this.$ajax.deleteImage({})
+      .then(({code,data,msg}) => {
+        if (code === '200') {
+          if (!result) return;
+        } else {
+          console.log(msg);
+        }
+      })
 
   },
   render: h => h(App)
