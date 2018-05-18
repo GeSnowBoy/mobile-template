@@ -7,7 +7,8 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
-
+const mock = require('mock-data-js')
+let mockFlag = true;
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -17,6 +18,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+    before(app){
+      if(mockFlag){
+        mockFlag = false;
+        mock(app)
+      }
+    },
     clientLogLevel: 'warning',
     historyApiFallback: true,
     hot: true,
